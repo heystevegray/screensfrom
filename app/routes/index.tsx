@@ -1,30 +1,10 @@
-// app/routes/index.tsx
-import * as fs from 'node:fs'
-import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-
-const filePath = 'count.txt'
-
-async function readCount() {
-  return parseInt(await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'))
-}
-
-const getCount = createServerFn({
-  method: 'GET',
-}).handler(() => {
-  return readCount()
-})
-
-const updateCount = createServerFn({ method: 'POST' })
-  .validator((d: number) => d)
-  .handler(async ({ data }) => {
-    const count = await readCount()
-    await fs.promises.writeFile(filePath, `${count + data}`)
-  })
+import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
+import { shows } from '@/lib/shows'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import Container from '@/components/container'
 
 export const Route = createFileRoute('/')({
   component: Home,
-  loader: async () => await getCount(),
 })
 
 function Home() {
@@ -32,15 +12,24 @@ function Home() {
   const state = Route.useLoaderData()
 
   return (
-    <button
-      type='button'
-      onClick={() => {
-        updateCount({ data: 1 }).then(() => {
-          router.invalidate()
-        })
-      }}
-    >
-      Add 1 to {state}?
-    </button>
+    <Container main>
+      <div className='flex md:flex-row gap-4 flex-wrap flex-col flex-grow'>
+        {shows.map((show) => (
+          <Link to='/shows/$showId' params={{ showId: show.id }} key={show.id} className='hover w-full md:w-64 h-full'>
+            <Card className='pt-0 overflow-hidden'>
+              <CardContent className='relative h-32 overflow-hidden object-cover'>
+                <div className='w-full h-full'>
+                  <img src={show.image} alt={show.name} className='absolute top-0 left-0 object-cover size-full' />
+                </div>
+              </CardContent>
+              <CardHeader>
+                <CardTitle>{show.name}</CardTitle>
+                <CardDescription>{show.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+        ))}
+      </div>
+    </Container>
   )
 }
