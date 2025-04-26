@@ -4,6 +4,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-r
 
 // Add this, notice the ?url
 import appCss from '@/styles/globals.css?url'
+import { TailwindIndicator } from '@/components/tailwind-indicator'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -45,6 +46,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         {children}
+        <TailwindIndicator />
         <Scripts />
       </body>
     </html>

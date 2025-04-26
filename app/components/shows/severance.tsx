@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Icons } from '../icons'
 
 const Divider = () => {
-  return <div className='h-3 border-4 border-cyan-500' />
+  return <div className='h-3 border-2 border-cyan-500' />
 }
 
 const getRandomNumberBetween = (min: number, max: number) => {
@@ -13,12 +14,12 @@ const getRandomHexColor = () => {
 }
 
 const Numbers = () => {
-  const randomNumbers = Array.from({ length: 100 }, () => getRandomNumberBetween(0, 9))
+  const randomNumbers = Array.from({ length: 1000 }, () => getRandomNumberBetween(0, 9))
 
   return (
-    <div className='flex flex-row items-center justify-center gap-2 flex-wrap'>
+    <div className='flex flex-row items-center justify-center gap-2 flex-wrap overflow-y-scroll'>
       {randomNumbers.map((number, index) => (
-        <div key={index} className='size-8 flex border-red-500 border items-center justify-center font-bold hover:font-normal hover:text-6xl transition-all duration-300 ease-in-out'>
+        <div key={index} className='size-8 flex items-center justify-center font-bold hover:font-normal hover:text-6xl transition-all duration-300 ease-in-out'>
           {number}
         </div>
       ))}
@@ -44,11 +45,11 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
   const [open, setOpen] = useState(initialOpen)
   const completion = getRandomNumberBetween(0, 100)
   return (
-    <div className='grid grid-cols-1 grid-rows-2 gap-1 relative'>
+    <div className='grid grid-cols-1 grid-rows-2 gap-1 relative md:text-lg'>
       {open ? <BoxLid open={open} /> : null}
-      <div className='text-lg border-cyan-500 border-2 flex justify-center items-center'>{String(number).padStart(2, '0')}</div>
+      <div className='border-cyan-500 border-2 flex justify-center items-center'>{String(number).padStart(2, '0')}</div>
       <div
-        className='text-lg border-cyan-500 border-2 flex justify-center items-center'
+        className='border-cyan-500 border-2 flex justify-center items-center'
         style={{
           background: `linear-gradient(to right, var(--color-cyan-100) ${completion}%, transparent ${completion}%)`,
         }}
@@ -61,30 +62,32 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
 
 const Severance = () => {
   return (
-    <div className='h-dvh w-full bg-slate-950 text-cyan-500 grid grid-rows-[auto_1fr_auto]'>
-      <div className='p-8'>
-        <header className='flex items-center justify-between h-16 border-2 border-cyan-500 p-2 max-w-3xl mx-auto'>
+    <div className='h-svh w-full bg-slate-950 text-cyan-500 flex flex-col'>
+      <div className='md:p-8 p-2'>
+        <div className='flex items-center justify-between h-[52px] border-2 border-cyan-500 p-2 md:pr-0 max-w-3xl mx-auto'>
           <h1 className='text-2xl font-bold'>Dranesville</h1>
-          <div className='flex flex-row items-center gap-2'>
-            <p>19% Complete</p>
-            <p>Lumenn</p>
+          <div className='order-2 md:order-1 flex md:justify-end justify-center md:flex-1 items-center'>
+            <p className='text-sm md:text-base md:mr-4'>
+              19% <span className='hidden: md:inline-flex'>Complete</span>
+            </p>
           </div>
-        </header>
+          <Icons.lumonBackground className='size-24 md:size-48 order-1 md:order-2' backgroundClassName='fill-slate-950' foregroundClassName='fill-cyan-500' />
+        </div>
       </div>
-      <div className='grid grid-rows-[auto_1fr_auto] gap-2'>
+      <div className='flex flex-col gap-2 md:max-h-[73%] max-h-[70%] flex-1'>
         <Divider />
         <Numbers />
         <Divider />
       </div>
-      <div>
-        <div className='grid grid-cols-5 grid-rows-1 gap-6 p-2 max-w-3xl mx-auto'>
+      <div className='flex flex-col gap-2 w-full justify-center mx-auto max-w-3xl'>
+        <div className='grid grid-cols-5 grid-rows-1 gap-6 p-2 max-w-3xl'>
           <Bin number={1} />
           <Bin number={2} />
           <Bin number={3} initialOpen />
           <Bin number={4} />
           <Bin number={5} />
         </div>
-        <div className='w-full flex items-center justify-center gap-2 pb-4'>
+        <div className='w-full flex items-center justify-center gap-2'>
           {getRandomHexColor()} : {getRandomHexColor()}
         </div>
       </div>
