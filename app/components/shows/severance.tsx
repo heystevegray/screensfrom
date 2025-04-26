@@ -18,7 +18,7 @@ const Numbers = () => {
   return (
     <div className='flex flex-row items-center justify-center gap-2 flex-wrap'>
       {randomNumbers.map((number, index) => (
-        <div key={index} className='size-8 flex items-center justify-center font-bold hover:text-6xl transition-all duration-300 ease-in-out'>
+        <div key={index} className='size-8 flex items-center justify-center font-bold hover:font-normal hover:text-6xl transition-all duration-300 ease-in-out severance-number'>
           {number}
         </div>
       ))}
@@ -33,8 +33,8 @@ const BoxLid = ({ open }: { open: boolean }) => {
 
   return (
     <div>
-      <div className='absolute -top-9 -skew-x-[136deg] -translate-x-1/2 -left-[22px] rotate-45 border-cyan-500 h-3 w-16 border-l-0 border-4' />
-      <div className='absolute -top-9 skew-x-[136deg] translate-x-1/2 -right-[22px] -rotate-45 border-cyan-500 h-3 w-16 border-r-0 border-4' />
+      <div className='absolute -top-9 -skew-x-[136deg] -translate-x-1/2 -left-[22px] rotate-45 border-cyan-100 h-3 w-16 border-l-0 border-4' />
+      <div className='absolute -top-9 skew-x-[136deg] translate-x-1/2 -right-[22px] -rotate-45 border-cyan-100 h-3 w-16 border-r-0 border-4' />
     </div>
   )
 }
@@ -43,11 +43,11 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
   const [open, setOpen] = useState(initialOpen)
   const completion = getRandomNumberBetween(0, 100)
   return (
-    <div className='grid grid-cols-1 grid-rows-2 gap-2 relative'>
+    <div className='grid grid-cols-1 grid-rows-2 gap-1 relative'>
       {open ? (
         <div className='absolute top-0 left-0 right-0'>
           {/* Top */}
-          <div className='absolute -top-4 left-0 right-0 border-cyan-500 border-2 h-4 bg-slate-950' />
+          <div className='absolute -top-4 left-0 right-0 border-cyan-100 border-2 h-4 bg-slate-950' />
           <BoxLid open={open} />
           <BoxLid open={open} />
         </div>
@@ -56,7 +56,7 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
       <div
         className='text-lg border-cyan-500 border-2 flex justify-center items-center'
         style={{
-          background: `linear-gradient(to right, #ffffff ${completion}%, transparent ${completion}%)`,
+          background: `linear-gradient(to right, var(--color-cyan-100) ${completion}%, transparent ${completion}%)`,
         }}
       >
         {completion}%
@@ -67,7 +67,7 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
 
 const Severance = () => {
   return (
-    <div className='min-h-dvh w-full bg-slate-950 text-cyan-500'>
+    <div className='min-h-dvh w-full bg-slate-950 text-cyan-500 grid grid-rows-[auto_1fr_auto]'>
       <div className='p-8'>
         <header className='flex items-center justify-between h-16 border-2 border-cyan-500 p-2 max-w-3xl mx-auto'>
           <h1 className='text-2xl font-bold'>Dranesville</h1>
@@ -77,20 +77,22 @@ const Severance = () => {
           </div>
         </header>
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className='grid grid-rows-[auto_1fr_auto] gap-2'>
         <Divider />
         <Numbers />
         <Divider />
       </div>
-      <div className='grid grid-cols-5 grid-rows-1 gap-6 p-2'>
-        <Bin number={1} />
-        <Bin number={2} />
-        <Bin number={3} initialOpen />
-        <Bin number={4} />
-        <Bin number={5} />
-      </div>
-      <div className='w-full flex items-center justify-center gap-2'>
-        {getRandomHexColor()} : {getRandomHexColor()}
+      <div>
+        <div className='grid grid-cols-5 grid-rows-1 gap-6 p-2 max-w-3xl mx-auto'>
+          <Bin number={1} />
+          <Bin number={2} />
+          <Bin number={3} initialOpen />
+          <Bin number={4} />
+          <Bin number={5} />
+        </div>
+        <div className='w-full flex items-center justify-center gap-2 pb-4'>
+          {getRandomHexColor()} : {getRandomHexColor()}
+        </div>
       </div>
     </div>
   )

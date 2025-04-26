@@ -15,12 +15,10 @@ function Home() {
     <Container main>
       <div className='flex md:flex-row gap-4 flex-wrap flex-col flex-grow'>
         {shows.map((show) => (
-          <Link to='/shows/$showId' params={{ showId: show.id }} key={show.id} className='hover w-full md:w-64 h-full'>
+          <Link to='/shows/$showId' params={{ showId: show.id }} key={show.id} className='hover w-full md:w-64'>
             <Card className='pt-0 overflow-hidden'>
-              <CardContent className='relative h-32 overflow-hidden object-cover'>
-                <div className='w-full h-full'>
-                  <img src={show.image} alt={show.name} className='absolute top-0 left-0 object-cover size-full' />
-                </div>
+              <CardContent className='relative h-32 overflow-hidden'>
+                <img src={show.image} alt={show.name} className='absolute top-0 left-0 object-cover size-full' />
               </CardContent>
               <CardHeader>
                 <CardTitle>{show.name}</CardTitle>

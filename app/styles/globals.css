@@ -121,3 +121,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes animate-severance-number {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-5deg) translateY(-2px);
+  }
+  75% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(5deg) translateY(2px);
+  }
+}
+
+.hover {
+  @apply hover:scale-105 transition-transform duration-300 active:scale-95 cursor-pointer;
+}
+
+.severance-number {
+  animation: animate-severance-number 4s ease-in-out alternate-reverse infinite;
+}
