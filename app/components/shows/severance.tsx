@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { PropsWithChildren, useRef, useState } from 'react'
 import { Icons } from '../icons'
+import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core'
+import { CSS } from '@dnd-kit/utilities'
 
 const Divider = () => {
   return <div className='h-3 border-2 border-cyan-500' />
@@ -60,7 +62,71 @@ const Bin = ({ number, initialOpen = false }: { number: number; initialOpen?: bo
   )
 }
 
+function DraggableItem({ id, children }: { id: string } & PropsWithChildren) {
+  const { attributes, listeners, setNodeRef, isDragging, transform } = useDraggable({
+    id,
+  })
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+  }
+
+  return (
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className={`p-2 rounded cursor-grab ${isDragging ? 'opacity-50' : 'bg-blue-500 text-white'}`}>
+      {children}
+    </div>
+  )
+}
+
+function DropBucket({ bucket, onDrop }: { bucket: string[]; onDrop: (id: string) => void }) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: 'bucket',
+  })
+
+  return (
+    <div ref={setNodeRef} className={`p-4 rounded w-64 min-h-32 ${isOver ? 'bg-green-300' : 'bg-gray-200'}`}>
+      <h2 className='font-bold mb-2'>Bucket</h2>
+      {bucket.length === 0 ? (
+        <p className='text-gray-500'>Drop items here</p>
+      ) : (
+        bucket.map((item) => (
+          <div key={item} className='p-2 bg-green-500 text-white rounded mb-2'>
+            {item}
+          </div>
+        ))
+      )}
+    </div>
+  )
+}
+
 const Severance = () => {
+  const [bucket, setBucket] = useState<string[]>([])
+
+  const handleDragEnd = (event: any) => {
+    const { over, active } = event
+    if (over?.id === 'bucket' && !bucket.includes(active.id)) {
+      setBucket((prev) => [...prev, active.id])
+    }
+  }
+
+  return (
+    <DndContext onDragEnd={handleDragEnd}>
+      <div className='flex gap-8 p-4'>
+        <div className='space-y-2'>
+          <h2 className='font-bold'>Items</h2>
+          {/* <Numbers /> */}
+          {Array.from({ length: 3 }, (_, index) => (
+            <DraggableItem key={index} id={index.toString()}>
+              <div className='p-2 bg-blue-500 text-white rounded'>Item {index}</div>
+            </DraggableItem>
+          ))}
+
+          <DropBucket bucket={bucket} onDrop={(id) => setBucket((prev) => [...prev, id])} />
+        </div>
+      </div>
+    </DndContext>
+  )
+
   return (
     <div className='h-svh w-full bg-slate-950 text-cyan-500 flex flex-col'>
       <div className='md:p-8 p-2'>
