@@ -132,8 +132,8 @@ const Severance = () => {
       <div className='h-svh w-full overflow-hidden bg-slate-950 text-cyan-500 flex flex-col'>
         <div className='md:p-8 p-2'>
           <div className='flex items-center justify-between h-[52px] border-2 border-cyan-500 p-2 md:pr-0 max-w-6xl mx-auto'>
-            <h1 className='text-2xl font-bold'>Dranesville</h1>
-            <div className='order-2 md:order-1 flex md:justify-end justify-center md:flex-1 items-center'>
+            <h1 className='md:text-2xl text-sm font-bold flex-1'>Dranesville</h1>
+            <div className='order-2 md:order-1 flex justify-end md:flex-1 items-center flex-1'>
               <p className='text-sm md:text-base md:mr-4'>
                 19% <span className='hidden: md:inline-flex'>Complete</span>
               </p>
