@@ -43,6 +43,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     <html>
       <head>
         <HeadContent />
+        <script defer src='https://umami.stevegray.io/script.js' data-website-id='61e71d5b-925f-4008-a56c-a142ccc0e17e' />
       </head>
       <body>
         {children}
