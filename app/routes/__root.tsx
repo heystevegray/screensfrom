@@ -5,6 +5,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-r
 // Add this, notice the ?url
 import appCss from '@/styles/globals.css?url'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
+import { isDevelopmentEnvironment } from '@/lib/utils'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -43,7 +44,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     <html>
       <head>
         <HeadContent />
-        <script defer src='https://umami.stevegray.io/script.js' data-website-id='61e71d5b-925f-4008-a56c-a142ccc0e17e' />
+        {isDevelopmentEnvironment() ? <script defer src='https://umami.stevegray.io/script.js' data-website-id='61e71d5b-925f-4008-a56c-a142ccc0e17e' /> : null}
       </head>
       <body>
         {children}
