@@ -78,7 +78,7 @@ function DraggableNumber({ id, centerPoint, children }: { id: number; centerPoin
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} className='size-12 touch-none'>
       <div
-        className={cn('rounded cursor-grab border border-transparent transition-all duration-300 ease-in-out hover:text-6xl flex items-center justify-center font-bold hover:font-normal text-3xl size-full wiggle', {
+        className={cn('rounded cursor-grab border border-transparent transition-all duration-300 ease-in-out hover:text-6xl flex items-center justify-center font-bold hover:font-normal text-3xl size-full', {
           'border-border text-6xl': isDragging,
           'text-green-500': isCenter,
           'text-green-800': isSurrounding,
@@ -109,11 +109,11 @@ const shuffleNumbers = (count: number) => {
 const totalNumbers = 300
 
 const Severance = () => {
-  const droppables = new Array(5).fill(0).map((_, index) => index + 1)
-  const numbersRef = useRef<(number | string)[]>(shuffleNumbers(totalNumbers))
-  const [numbers, setNumbers] = useState<(number | string)[]>(numbersRef.current)
+  const bins = new Array(5).fill(0).map((_, index) => index + 1)
   const center = useRef(getRandomNumberBetween(0, totalNumbers))
   const centerPoint = center.current
+  const numbersRef = useRef<(number | string)[]>(shuffleNumbers(totalNumbers))
+  const [numbers, setNumbers] = useState<(number | string)[]>(numbersRef.current)
 
   return (
     <DndContext
@@ -148,7 +148,7 @@ const Severance = () => {
         </div>
         <div className='flex flex-col gap-2 w-full items-center mx-auto'>
           <div className='flex flex-row gap-2 md:gap-6 p-2 max-w-3xl w-full'>
-            {droppables.map((id) => (
+            {bins.map((id) => (
               <DroppableBin id={id} key={id} />
             ))}
           </div>
