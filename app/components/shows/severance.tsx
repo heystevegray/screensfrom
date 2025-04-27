@@ -76,7 +76,7 @@ function DraggableNumber({ id, centerPoint, children }: { id: number; centerPoin
   }
 
   return (
-    <div ref={setNodeRef} style={style} className='size-12' {...listeners} {...attributes}>
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className='size-12 touch-none'>
       <div
         className={cn('rounded cursor-grab border border-transparent transition-all duration-300 ease-in-out hover:text-6xl flex items-center justify-center font-bold hover:font-normal text-3xl size-full wiggle', {
           'border-border text-6xl': isDragging,
@@ -147,7 +147,7 @@ const Severance = () => {
           <Divider />
         </div>
         <div className='flex flex-col gap-2 w-full items-center mx-auto'>
-          <div className='flex flex-row gap-6 p-2 max-w-3xl w-full'>
+          <div className='flex flex-row gap-2 md:gap-6 p-2 max-w-3xl w-full'>
             {droppables.map((id) => (
               <DroppableBin id={id} key={id} />
             ))}
