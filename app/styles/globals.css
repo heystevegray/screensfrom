@@ -144,3 +144,19 @@
 .severance-number {
   animation: animate-severance-number 4s ease-in-out alternate-reverse infinite;
 }
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+.wiggle {
+  animation: wiggle 5s infinite alternate;
+}
