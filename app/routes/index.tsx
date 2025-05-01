@@ -17,9 +17,7 @@ function Home() {
         {shows.map((show) => (
           <Link to='/shows/$showId' params={{ showId: show.id }} key={show.id} className='hover w-full md:w-64'>
             <Card className='pt-0 overflow-hidden'>
-              <CardContent className='relative h-32 overflow-hidden'>
-                <img src={show.image} alt={show.name} className='absolute top-0 left-0 object-cover size-full' />
-              </CardContent>
+              <CardContent className='relative h-32 overflow-hidden'>{typeof show.image === 'string' ? <img src={show.image} alt={show.name} className='absolute top-0 left-0 object-cover size-full' /> : show.image}</CardContent>
               <CardHeader>
                 <CardTitle>{show.name}</CardTitle>
                 <CardDescription>{show.description}</CardDescription>
