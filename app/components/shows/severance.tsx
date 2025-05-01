@@ -67,7 +67,7 @@ const Bin = ({ number, open }: { number: number; open?: boolean }) => {
   )
 }
 
-function DraggableNumber({ id, centerPoint, children, setIsDragging }: { id: number; centerPoint: number; setIsDragging: Dispatch<SetStateAction<Boolean>> } & PropsWithChildren) {
+const DraggableNumber = ({ id, centerPoint, children, setIsDragging }: { id: number; centerPoint: number; setIsDragging: Dispatch<SetStateAction<Boolean>> } & PropsWithChildren) => {
   const isCenter = id === centerPoint
   const isSurrounding = id === centerPoint - 1 || id === centerPoint + 1
 
@@ -101,7 +101,7 @@ function DraggableNumber({ id, centerPoint, children, setIsDragging }: { id: num
   )
 }
 
-function DroppableBin({ id }: { id: number }) {
+const DroppableBin = ({ id }: { id: number }) => {
   const { setNodeRef, isOver } = useDroppable({
     id,
   })
